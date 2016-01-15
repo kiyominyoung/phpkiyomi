@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: text/html; charset=UTF-8");
 
 $name = $_POST['name'];
@@ -19,8 +20,8 @@ $pw = $_POST['pw'];
 <?php
 if( $name == "miny" && $pw == "kiyomi"){
 
-setCookie('islogin','1');
-setCookie('name',$name);
+$_SESSION['islogin']='1';
+$_SESSION['name']=$name;
 ?>
 <h1>로그인 성공!</h1>
 
@@ -28,8 +29,8 @@ setCookie('name',$name);
 로그인 페이지로 <a href = "./postForm.php">돌아가기 </a>
 <?php
 }else{
-setCookie('islogin','0');
-setCookie('name', '');
+$_SESSION['islogin']='0';
+$_SESSION['name'] = '';
 ?>
 잘못된 아이디와 암호입니다. <br>
 다시 로그인 해보세요! <br>
