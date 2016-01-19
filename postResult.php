@@ -1,6 +1,7 @@
 <?php
 session_start();
 header("Content-Type: text/html; charset=UTF-8");
+include('db.php');
 
 $name = $_POST['name'];
 $pw = $_POST['pw'];
@@ -18,6 +19,22 @@ $pw = $_POST['pw'];
 
 
 <?php
+$link = mysql_connect($db['host'], $db['user'], $db['pw']);
+if (!$link) {
+    die('Could not connect: ' . mysql_error());
+}
+mysql_select_db($db['db']);
+$sql = "select * from members where id = '$name' and pwd = password('$pw')";
+echo $sql;
+$result = mysql_query($sql);
+$users = mysql_fetch_assoc($result);
+echo "<pre>";
+print_r($users);
+echo "</pre>";
+exit();
+
+mysql_close($link);
+
 if( $name == "miny" && $pw == "kiyomi"){
 
 $_SESSION['islogin']='1';
